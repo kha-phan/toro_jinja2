@@ -1,0 +1,24 @@
+{
+  "customerName": "Rainee",
+  "gender": "Female",
+  "paymentRequest": [
+    {
+      "serviceName": "Service 1",
+      "cash": 63000,
+      "note": "no"
+    },
+    {
+      "serviceName": "Service 2",
+      "cash": 222000,
+      "note": "no"
+    },
+    {
+      "serviceName": "Service 3",
+      "cash": 444.00,
+      "note": "no"
+    }
+  ],
+  "paymentTotal": 323000000,
+  "cashRemain": 399999,
+  "serviceRemain": 1
+}

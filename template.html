@@ -1,0 +1,68 @@
+<html>
+    <body>
+        <h2>Welcome to my home</h2> <br/>
+        Hello
+        {% if gender == "Male" %}
+            Mr
+        {% elif gender == "Female" %}
+            Mrs
+        {% else %}
+            Mr/Mrs
+        {% endif %} {{ customerName }}
+        <br/>
+
+        {% macro format_number(my_num) -%}
+{#            {{ "{0:,.2f}".format(my_num)|replace(".", "#")|replace(",", ".")|replace("#", ",") }}#}
+            {{ my_num }}
+        {%- endmacro %}
+
+        <table class="table-without-space">
+            <tr>
+                <td class="td-boder">#</td>
+                <td class="td-boder">Category</td>
+                <td class="td-boder">Amount</td>
+                <td class="td-boder">Note</td>
+            </tr>
+            {% for item in paymentRequest %}
+            <tr>
+                <td class="td-boder"> {{ loop.index }} </td>
+                <td class="td-boder"> {{ item.serviceName }} </td>
+                <td class="td-boder">{{ format_number(item.cash) }}</td>
+                <td class="td-boder">{{ item['note'] }}</td>
+            </tr>
+            {% endfor %}
+
+            {% set total = paymentRequest|sum(attribute='cash') %}
+            <tr>
+                <td class="td-boder"></td>
+                <td class="td-boder">Total</td>
+                <td class="td-boder">{{ format_number(total) }}</td>
+                <td class="td-boder"></td>
+            </tr>
+        </table> <br/>
+
+            Remain cash {{ format_number(cashRemain) }} VND. <br/>
+
+
+
+        {% macro display_not_enough(remain_cash, service_remain) -%}
+            {% set not_enough_week = 1 %}
+            {% if (service_remain <= not_enough_week) and (remain_cash < total) %}
+                    <b>No</b>
+            {% endif %}
+        {%- endmacro %}
+
+        Expected {{ display_not_enough(cashRemain, serviceRemain)}} enough to remain the service <b> {{ serviceRemain }} in next weeks</b> <br/>
+
+        {# noti_remain_week present for number of coresponding weeks in notification #}
+        {% set noti_remain_week = 3 %}
+        {% if (serviceRemain <= noti_remain_week) %}
+            Please top up the cash to continue use the service <br/>
+        {% endif %}
+
+        Thank you. <br/>
+
+
+    </body>
+</html>
+
